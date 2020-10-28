@@ -12,6 +12,9 @@ public class Candy {
     @Column(nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private CandyType candyType;
+
     @Column
     private double weightPerUnit;
 
