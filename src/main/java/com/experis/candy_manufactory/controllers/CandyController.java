@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RequestMapping("/api/v1/candy")
 
@@ -59,9 +57,34 @@ public class CandyController {
 
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
+/*
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    private ResponseEntity<CommonResponse> sortCandyRecordsByType(){
+        HashMap<candyType, Integer> mapOfCandyRecordsByType = new HashMap<>();
+
+        for (var candyType: mapOfCandyRecordsByType) {
+            if(mapOfWordCount.containsKey(word)){
+                int count = mapOfWordCount.get(word);
+                mapOfWordCount.put(word, count + 1);
+            } else {
+                mapOfWordCount.put(word, 1);
+            }
+        }
+        return mapOfWordCount;
+
+        LinkedHashMap<String,Integer> sortedMapOfWordCount = new LinkedHashMap<>();
+        mapOfWordCount.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .forEachOrdered(keyValuePair -> sortedMapOfWordCount.put(keyValuePair.getKey(), keyValuePair.getValue()));
+
+        return sortedMapOfWordCount;
+    }
+
+ */
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    private ResponseEntity<CommonResponse> editCandyRecord(@RequestBody Candy candyToUpdate, @PathVariable ("id") Long id){
+    private ResponseEntity<CommonResponse> updateCandyRecord(@RequestBody Candy candyToUpdate, @PathVariable ("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
         HttpStatus httpStatus;
 

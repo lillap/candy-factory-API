@@ -13,6 +13,7 @@ public class Candy {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column
     private CandyType candyType;
 
     @Column
