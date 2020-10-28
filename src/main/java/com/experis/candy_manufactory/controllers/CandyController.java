@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequestMapping("/api/v1/candy")
 
 @RestController
@@ -44,5 +47,15 @@ public class CandyController {
         }
 
         return new ResponseEntity<>(commonResponse, httpStatus);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    private ResponseEntity<CommonResponse> getAllCandyRecords(){
+        CommonResponse commonResponse = new CommonResponse();
+        List<Candy> candies = candyRepository.findAll();
+        commonResponse.data = candies;
+        commonResponse.message = "List of all existing candy records";
+
+        return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
 }
