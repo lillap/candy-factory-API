@@ -6,10 +6,7 @@ import com.experis.candy_manufactory.utils.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/candy")
 
@@ -29,5 +26,23 @@ public class CandyController {
         commonResponse.message = "The candy: " + candyToAdd + " has been added!";
 
         return new ResponseEntity<>(commonResponse, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    private ResponseEntity<CommonResponse> getCandyById(@PathVariable ("id") Long id){
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if (candyRepository.existsById(id)) {
+            commonResponse.data = candyRepository.findById(id);
+            commonResponse.message = "Candy with id: " + id +  " was found.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.data = null;
+            commonResponse.message = "The candy was not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+
+        return new ResponseEntity<>(commonResponse, httpStatus);
     }
 }
