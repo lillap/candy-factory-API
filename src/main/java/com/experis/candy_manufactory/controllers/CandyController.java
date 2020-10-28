@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/api/v1/candy")
 
@@ -57,5 +58,38 @@ public class CandyController {
         commonResponse.message = "List of all existing candy records";
 
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    private ResponseEntity<CommonResponse> editCandyRecord(@RequestBody Candy candyToUpdate, @PathVariable ("id") Long id){
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if (candyRepository.existsById(id)){
+            Optional<Candy> candyToUpdateRepository = candyRepository.findById(id);
+            Candy candy = candyToUpdateRepository.get();
+
+            if(candyToUpdate.getName() != null){
+                candy.setName(candyToUpdate.getName());
+            }
+            if(candyToUpdate.getCandyType() != null) {
+                candy.setCandyType(candyToUpdate.getCandyType());
+            }
+            if(candyToUpdate.getCostPerUnit() != Double.MIN_VALUE ){
+                candy.setCostPerUnit(candyToUpdate.getCostPerUnit());
+            }
+            if(candyToUpdate.getWeightPerUnit() != Double.MIN_VALUE){
+                candy.setWeightPerUnit(candyToUpdate.getWeightPerUnit());
+            }
+            candyRepository.save(candy);
+
+            commonResponse.data = candy;
+            commonResponse.message = "Candy record with id: " +  id + " has been updated.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.message = "Candy record with id: " + id + " was not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(commonResponse, httpStatus);
     }
 }
