@@ -92,4 +92,20 @@ public class CandyController {
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    private ResponseEntity<CommonResponse> deleteCandyRecordById(@PathVariable ("id") Long id){
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if(candyRepository.existsById(id)){
+            candyRepository.deleteById(id);
+            commonResponse.message = "Candy record with id: " + id + " has been deleted.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.message = "Candy record with id " + id + " was not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(commonResponse, httpStatus);
+    }
 }
