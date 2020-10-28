@@ -75,12 +75,8 @@ public class CandyController {
             if(candyToUpdate.getCandyType() != null) {
                 candy.setCandyType(candyToUpdate.getCandyType());
             }
-            if(candyToUpdate.getCostPerUnit() != Double.MIN_VALUE ){
-                candy.setCostPerUnit(candyToUpdate.getCostPerUnit());
-            }
-            if(candyToUpdate.getWeightPerUnit() != Double.MIN_VALUE){
-                candy.setWeightPerUnit(candyToUpdate.getWeightPerUnit());
-            }
+            candy.setCostPerUnit(candyToUpdate.getCostPerUnit());
+            candy.setWeightPerUnit(candyToUpdate.getWeightPerUnit());
             candyRepository.save(candy);
 
             commonResponse.data = candy;
