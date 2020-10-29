@@ -24,7 +24,7 @@ public class Factory {
     @OneToOne
     @JoinColumn(name = "manager_id")
     private Manager manager; //manager entity
-    
+
 
     @OneToOne
     @JoinColumn(name = "adress_id")
