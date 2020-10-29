@@ -28,6 +28,24 @@ public class ManagerController {
         return new ResponseEntity<>(commonResponse,HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    private ResponseEntity<CommonResponse> getManagerById(@PathVariable ("id") Long id){
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if (managerRepository.existsById(id)) {
+            commonResponse.data = managerRepository.findById(id);
+            commonResponse.message = "Manager with id: " + id +  " was found.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.data = null;
+            commonResponse.message = "Manager with id: " + id + " was not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+
+        return new ResponseEntity<>(commonResponse, httpStatus);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     private ResponseEntity<CommonResponse> deleteManagerRecordById(@PathVariable("id") Long id){
         CommonResponse commonResponse = new CommonResponse();

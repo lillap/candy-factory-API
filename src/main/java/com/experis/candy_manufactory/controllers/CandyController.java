@@ -42,7 +42,7 @@ public class CandyController {
             httpStatus = HttpStatus.OK;
         } else {
             commonResponse.data = null;
-            commonResponse.message = "The candy was not found.";
+            commonResponse.message = "The candy with id: " + id + " was not found.";
             httpStatus = HttpStatus.NOT_FOUND;
         }
 
