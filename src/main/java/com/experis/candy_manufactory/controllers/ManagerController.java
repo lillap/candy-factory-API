@@ -6,10 +6,7 @@ import com.experis.candy_manufactory.utils.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/api/v1/manager")
 
@@ -29,6 +26,24 @@ public class ManagerController {
                 " was added with id: " + managerToAdd.getId();
 
         return new ResponseEntity<>(commonResponse,HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    private ResponseEntity<CommonResponse> deleteManagerRecordById(@PathVariable("id") Long id){
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if(managerRepository.existsById(id)){
+
+            commonResponse.data = managerRepository.findById(id);
+            managerRepository.deleteById(id);
+            commonResponse.message = "Manager record with id: " + id + " has been deleted.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.message = "Manager record with id " + id + " was not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(commonResponse, httpStatus);
     }
 
 }
