@@ -73,8 +73,10 @@ public class ManagerController {
             if(managerToUpdate.getFirstName() != null){
                 manager.setFirstName(managerToUpdate.getFirstName());
             }
-            //Add address to update
-            
+            if(managerToUpdate.getLastName() != null){
+                manager.setLastName(managerToUpdate.getLastName());
+            }
+
             managerRepository.save(manager);
 
             commonResponse.data = manager;
