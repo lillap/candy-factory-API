@@ -25,7 +25,7 @@ public class FactoryController {
 
         commonResponse.data = factoryToAdd;
         commonResponse.message = "Factory with name: " + factoryToAdd.getFactoryName() +
-                " and id: " + factoryToAdd.getId() + " has been added.";
+                " has been added with id: " + factoryToAdd.getId();
 
         return new ResponseEntity<>(commonResponse, HttpStatus.CREATED);
     }
