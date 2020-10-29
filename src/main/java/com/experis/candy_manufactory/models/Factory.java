@@ -9,7 +9,7 @@ public class Factory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
     private String factoryName;
@@ -21,6 +21,10 @@ public class Factory {
     @OneToOne
     @JoinColumn(name = "manager_id")
     private Manager manager; //manager entity
+
+    @OneToOne
+    @JoinColumn(name = "adress_id")
+    private Address address; //address entity
 
     public long getId() {
         return id;
