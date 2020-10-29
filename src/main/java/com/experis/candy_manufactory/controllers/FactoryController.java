@@ -46,4 +46,21 @@ public class FactoryController {
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE)
+    private ResponseEntity<CommonResponse> deleteFactoryById(@PathVariable ("id") Long id) {
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if(factoryRepository.existsById(id)){
+            commonResponse.data = factoryRepository.findById(id);
+            factoryRepository.deleteById(id);
+            commonResponse.message = "The factory with id: " + id + " has been deleted.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.message = "Factory with id: " + id + " was not found.";
+            httpStatus = HttpStatus.OK;
+        }
+        return new ResponseEntity<>(commonResponse, httpStatus);
+    }
+
 }
