@@ -1,12 +1,16 @@
 package com.experis.candy_manufactory.controllers;
 
 import com.experis.candy_manufactory.Repositories.ManagerRepository;
+import com.experis.candy_manufactory.models.Candy;
 import com.experis.candy_manufactory.models.Manager;
 import com.experis.candy_manufactory.utils.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequestMapping(value = "/api/v1/manager")
 
@@ -43,6 +47,43 @@ public class ManagerController {
             httpStatus = HttpStatus.NOT_FOUND;
         }
 
+        return new ResponseEntity<>(commonResponse, httpStatus);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    private ResponseEntity<CommonResponse> getAllManagerRecords(){
+        CommonResponse commonResponse = new CommonResponse();
+        List<Manager> managers = managerRepository.findAll();
+        commonResponse.data = managers;
+        commonResponse.message = "List of all candy in the factory.";
+
+        return new ResponseEntity<>(commonResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    private ResponseEntity<CommonResponse> updateManagerRecord(@RequestBody Manager managerToUpdate,
+                                                             @PathVariable ("id") Long id){
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if (managerRepository.existsById(id)){
+            Optional<Manager> managerToUpdateRepository = managerRepository.findById(id);
+            Manager manager = managerToUpdateRepository.get();
+
+            if(managerToUpdate.getFirstName() != null){
+                manager.setFirstName(managerToUpdate.getFirstName());
+            }
+            //Add address to update
+            
+            managerRepository.save(manager);
+
+            commonResponse.data = manager;
+            commonResponse.message = "Manager record with id: " +  id + " has been updated.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.message = "Manager record with id: " + id + " was not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
 

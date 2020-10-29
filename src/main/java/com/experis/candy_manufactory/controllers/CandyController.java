@@ -54,7 +54,7 @@ public class CandyController {
         CommonResponse commonResponse = new CommonResponse();
         List<Candy> candies = candyRepository.findAll();
         commonResponse.data = candies;
-        commonResponse.message = "List of all candy in the factory.";
+        commonResponse.message = "List of all managers working for Willy Wonka.";
 
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
