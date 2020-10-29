@@ -1,6 +1,7 @@
 package com.experis.candy_manufactory.controllers;
 
 import com.experis.candy_manufactory.Repositories.FactoryRepository;
+import com.experis.candy_manufactory.models.Candy;
 import com.experis.candy_manufactory.models.Factory;
 import com.experis.candy_manufactory.utils.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
+
+import java.util.List;
 
 @RequestMapping(value = "/api/v1/factory")
 
@@ -44,6 +47,16 @@ public class FactoryController {
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    private ResponseEntity<CommonResponse> getAllFactories(){
+        CommonResponse commonResponse = new CommonResponse();
+        List<Factory> factories = factoryRepository.findAll();
+        commonResponse.data = factories;
+        commonResponse.message = "List of all existing factories.";
+
+        return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
