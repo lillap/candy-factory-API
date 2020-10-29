@@ -13,5 +13,5 @@ public class Factory {
     private String factoryName;
 
     @Column
-    private int areaSize;
+    private int sizeArea;
 }
