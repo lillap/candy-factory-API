@@ -1,10 +1,13 @@
 package com.experis.candy_manufactory.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+
 public class Factory {
 
     @Id
@@ -15,22 +18,23 @@ public class Factory {
     private String factoryName;
 
     @Column
-    private int sizeArea;
+    private int sizeOfArea;
 
 
     @OneToOne
     @JoinColumn(name = "manager_id")
     private Manager manager; //manager entity
+    
 
     @OneToOne
     @JoinColumn(name = "adress_id")
     private Address address; //address entity
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,11 +46,11 @@ public class Factory {
         this.factoryName = factoryName;
     }
 
-    public int getSizeArea() {
-        return sizeArea;
+    public int getSizeOfArea() {
+        return sizeOfArea;
     }
 
-    public void setSizeArea(int sizeArea) {
-        this.sizeArea = sizeArea;
+    public void setSizeOfArea(int sizeArea) {
+        this.sizeOfArea = sizeArea;
     }
 }

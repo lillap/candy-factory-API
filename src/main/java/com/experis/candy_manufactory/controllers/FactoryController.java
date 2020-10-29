@@ -1,14 +1,12 @@
 package com.experis.candy_manufactory.controllers;
 
 import com.experis.candy_manufactory.Repositories.FactoryRepository;
-import com.experis.candy_manufactory.models.Candy;
 import com.experis.candy_manufactory.models.Factory;
 import com.experis.candy_manufactory.utils.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,8 +72,8 @@ public class FactoryController {
             if (factoryToUpdate.getFactoryName() != null){
                 factory.setFactoryName(factoryToUpdate.getFactoryName());
             }
-            if(factoryToUpdate.getSizeArea() != 0){
-                factory.setSizeArea(factoryToUpdate.getSizeArea());
+            if(factoryToUpdate.getSizeOfArea() != 0){
+                factory.setSizeOfArea(factoryToUpdate.getSizeOfArea());
             }
             factoryRepository.save(factory);
 

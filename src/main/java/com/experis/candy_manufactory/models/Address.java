@@ -1,10 +1,14 @@
 package com.experis.candy_manufactory.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+
 public class Address {
 
     @Id
@@ -22,10 +26,12 @@ public class Address {
 
     @Column
     private String postalCode;
-
+/*
     @JsonIgnore
     @OneToOne(mappedBy = "address")
     private Factory factory;
+
+ */
 
     public Long getId() {
         return id;
@@ -66,7 +72,7 @@ public class Address {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-
+/*
     public Factory getFactory() {
         return factory;
     }
@@ -74,4 +80,6 @@ public class Address {
     public void setFactory(Factory factory) {
         this.factory = factory;
     }
+
+ */
 }
