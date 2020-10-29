@@ -1,5 +1,7 @@
 package com.experis.candy_manufactory.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,11 @@ public class Factory {
 
     @Column
     private int sizeArea;
+
+
+    @OneToOne
+    @JoinColumn(name = "manager_id")
+    private Manager manager; //manager entity
 
     public long getId() {
         return id;
