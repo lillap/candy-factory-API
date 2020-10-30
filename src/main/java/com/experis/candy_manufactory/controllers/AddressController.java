@@ -84,7 +84,7 @@ public class AddressController {
                 address.setCity(addressToUpdate.getCity());
             }
             if(addressToUpdate.getCountry() != null){
-                address.setCity(addressToUpdate.getCountry());
+                address.setCountry(addressToUpdate.getCountry());
             }
             addressRepository.save(address);
 

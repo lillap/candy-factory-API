@@ -24,12 +24,15 @@ public class Manager {
 
     @Column(nullable = false)
     private LocalDate dateOfBirth;
-/*
-    @JsonIgnore
-    @OneToOne(mappedBy = "factory")
-    private Factory factory;
 
- */
+
+    @OneToOne
+    @JoinColumn(name = "adress_id")
+    private Address address; //address entity
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "manager")
+    private Factory factory;
 
     public Long getId() {
         return id;
@@ -62,7 +65,7 @@ public class Manager {
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-/*
+
     public Factory getFactory() {
         return factory;
     }
@@ -71,5 +74,11 @@ public class Manager {
         this.factory = factory;
     }
 
- */
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

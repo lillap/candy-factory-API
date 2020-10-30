@@ -1,9 +1,14 @@
 package com.experis.candy_manufactory.models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.apache.tomcat.jni.Library;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
@@ -26,6 +31,20 @@ public class Candy {
 
     @Column
     private double costPerUnit;
+
+    @ManyToMany(mappedBy = "candies")
+    public List<Factory> factories;
+
+    @JsonGetter("factories")
+    public List<String> factoriesGetter() {
+        if(factories != null){
+            return factories.stream()
+                    .map(factory -> {
+                        return "/api/v1/factories/" + factory.getId();
+                    }).collect(Collectors.toList());
+        }
+        return null;
+    }
 
     public Long getId() {
         return id;
@@ -65,5 +84,13 @@ public class Candy {
 
     public void setCostPerUnit(double costPerUnit) {
         this.costPerUnit = costPerUnit;
+    }
+
+    public List<Factory> getFactories() {
+        return factories;
+    }
+
+    public void setFactories(List<Factory> factories) {
+        this.factories = factories;
     }
 }

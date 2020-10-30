@@ -29,12 +29,15 @@ public class Address {
 
     @Column
     private String country;
-/*
+
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "address")
+    private Manager manager;
+
     @JsonIgnore
     @OneToOne(mappedBy = "address")
     private Factory factory;
-
- */
 
     public Long getId() {
         return id;
@@ -84,7 +87,14 @@ public class Address {
         this.country = country;
     }
 
-    /*
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
     public Factory getFactory() {
         return factory;
     }
@@ -92,6 +102,4 @@ public class Address {
     public void setFactory(Factory factory) {
         this.factory = factory;
     }
-
- */
 }
