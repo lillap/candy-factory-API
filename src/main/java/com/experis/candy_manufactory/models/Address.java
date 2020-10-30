@@ -26,6 +26,9 @@ public class Address {
 
     @Column
     private String postalCode;
+
+    @Column
+    private String country;
 /*
     @JsonIgnore
     @OneToOne(mappedBy = "address")
@@ -72,7 +75,16 @@ public class Address {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-/*
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    /*
     public Factory getFactory() {
         return factory;
     }
