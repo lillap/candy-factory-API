@@ -96,4 +96,21 @@ public class AddressController {
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
+
+    @DeleteMapping(value = "/{id}")
+    private ResponseEntity<CommonResponse> deleteAddressById(@PathVariable ("id") Long id) {
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if(addressRepository.existsById(id)){
+            commonResponse.data = addressRepository.findById(id);
+            addressRepository.deleteById(id);
+            commonResponse.message = "The address with id: " + id + " has been deleted.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.message = "The address with id: " + id + " was not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(commonResponse, httpStatus);
+    }
 }

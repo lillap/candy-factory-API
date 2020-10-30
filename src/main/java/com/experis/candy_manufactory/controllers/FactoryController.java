@@ -87,7 +87,7 @@ public class FactoryController {
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> deleteFactoryById(@PathVariable ("id") Long id) {
         CommonResponse commonResponse = new CommonResponse();
         HttpStatus httpStatus;
@@ -99,7 +99,7 @@ public class FactoryController {
             httpStatus = HttpStatus.OK;
         } else {
             commonResponse.message = "Factory with id: " + id + " was not found.";
-            httpStatus = HttpStatus.OK;
+            httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
