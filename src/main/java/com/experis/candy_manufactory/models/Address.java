@@ -22,10 +22,10 @@ public class Address {
     private String streetNumber;
 
     @Column
-    private String city;
+    private String postalCode;
 
     @Column
-    private String postalCode;
+    private String city;
 
     @Column
     private String country;

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping(value = "/api/v1/address")
 
@@ -58,5 +59,41 @@ public class AddressController {
         commonResponse.message = "All existing addresses in this database.";
 
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<CommonResponse> updateAddressById(@RequestBody Address addressToUpdate, @PathVariable("id") Long id){
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
+
+        if(addressRepository.existsById(id)) {
+            Optional<Address> addressToUpdateRepo = addressRepository.findById(id);
+            Address address = addressToUpdateRepo.get();
+
+            if(addressToUpdate.getStreet() != null){
+                address.setStreet(addressToUpdate.getStreet());
+            }
+            if(addressToUpdate.getStreetNumber() != null){
+                address.setStreetNumber(addressToUpdate.getStreetNumber());
+            }
+            if(addressToUpdate.getPostalCode() != null){
+                address.setPostalCode(addressToUpdate.getPostalCode());
+            }
+            if(addressToUpdate.getCity() != null){
+                address.setCity(addressToUpdate.getCity());
+            }
+            if(addressToUpdate.getCountry() != null){
+                address.setCity(addressToUpdate.getCountry());
+            }
+            addressRepository.save(address);
+
+            commonResponse.data = address;
+            commonResponse.message = "The address with id: " + id + " has been updated.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.message = "The address with id: " + id + " was  not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(commonResponse, httpStatus);
     }
 }
