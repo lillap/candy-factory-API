@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping(value = "/api/v1/factory")
-
 @RestController
+@CrossOrigin(origins = "*")
+@RequestMapping(value = "/api/v1/factory")
 public class FactoryController {
 
     @Autowired

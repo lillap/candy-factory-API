@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/v1/address")
 
-@RestController
+
 public class AddressController {
 
     @Autowired

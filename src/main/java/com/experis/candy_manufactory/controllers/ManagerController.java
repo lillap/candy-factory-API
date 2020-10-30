@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping(value = "/api/v1/manager")
-
 @RestController
+@CrossOrigin(origins = "*")
+@RequestMapping(value = "/api/v1/manager")
 public class ManagerController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class ManagerController {
 
         commonResponse.data = managerToAdd;
         commonResponse.message = "Oompalompa manager: " +  managerToAdd.getFirstName() +
-                " was added with id: " + managerToAdd.getId();
+                " has been added with id: " + managerToAdd.getId();
 
         return new ResponseEntity<>(commonResponse,HttpStatus.CREATED);
     }
