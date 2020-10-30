@@ -17,7 +17,7 @@ public class AddressController {
     @Autowired
     AddressRepository addressRepository;
 
-    @DeleteMapping()
+    @PostMapping
     public ResponseEntity<CommonResponse> addAddress(@RequestBody Address addressToAdd){
 
         CommonResponse commonResponse = new CommonResponse();
