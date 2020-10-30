@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping(value = "/api/v1/address")
 
 @RestController
@@ -44,5 +46,17 @@ public class AddressController {
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
+    }
+
+    @GetMapping
+    public ResponseEntity<CommonResponse> getAllAddresses() {
+        CommonResponse commonResponse = new CommonResponse();
+
+        List<Address> allAddresses = addressRepository.findAll();
+
+        commonResponse.data = allAddresses;
+        commonResponse.message = "All existing addresses in this database.";
+
+        return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
 }

@@ -53,7 +53,7 @@ public class FactoryController {
         CommonResponse commonResponse = new CommonResponse();
         List<Factory> factories = factoryRepository.findAll();
         commonResponse.data = factories;
-        commonResponse.message = "List of all existing factories.";
+        commonResponse.message = "List of all existing factories in this database.";
 
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
