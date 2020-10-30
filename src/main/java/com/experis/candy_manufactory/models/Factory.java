@@ -25,7 +25,7 @@ public class Factory {
 
 
     @OneToOne
-    @JoinColumn(name = "manager_id")
+    @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private Manager manager; //manager entity
 
     @OneToOne

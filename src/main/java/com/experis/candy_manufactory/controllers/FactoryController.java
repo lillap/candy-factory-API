@@ -75,13 +75,22 @@ public class FactoryController {
             if(factoryToUpdate.getSizeOfArea() != 0){
                 factory.setSizeOfArea(factoryToUpdate.getSizeOfArea());
             }
+            if(factoryToUpdate.getManager() != null){
+                factory.setManager(factoryToUpdate.getManager());
+            }
+            if(factoryToUpdate.getAddress() != null){
+                factory.setAddress(factoryToUpdate.getAddress());
+            }
+            if(factoryToUpdate.getCandies() != null){
+                factory.setCandies(factoryToUpdate.getCandies());
+            }
             factoryRepository.save(factory);
 
             commonResponse.data = factory;
-            commonResponse.message = "Factory record with id: " + id + " has been updated.";
+            commonResponse.message = "Record of factory with id: " + id + " has been updated.";
             httpStatus = HttpStatus.OK;
         } else {
-            commonResponse.message = "Factory record with id: " + id + " was not found.";
+            commonResponse.message = "Record of factory with id: " + id + " was not found.";
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
@@ -95,10 +104,10 @@ public class FactoryController {
         if(factoryRepository.existsById(id)){
             commonResponse.data = factoryRepository.findById(id);
             factoryRepository.deleteById(id);
-            commonResponse.message = "The factory with id: " + id + " has been deleted.";
+            commonResponse.message = "Record of factory with id: " + id + " has been deleted.";
             httpStatus = HttpStatus.OK;
         } else {
-            commonResponse.message = "Factory with id: " + id + " was not found.";
+            commonResponse.message = "Record of factory with id: " + id + " was not found.";
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);

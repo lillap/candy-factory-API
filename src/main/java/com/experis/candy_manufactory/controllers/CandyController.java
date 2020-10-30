@@ -27,7 +27,8 @@ public class CandyController {
         candyToAdd = candyRepository.save(candyToAdd);
 
         commonResponse.data = candyToAdd;
-        commonResponse.message = "The candy: " + candyToAdd.getName() + " has been added!";
+        commonResponse.message = "Candy with name: " + candyToAdd.getName()
+                + " has been added with id: " + candyToAdd.getId();
 
         return new ResponseEntity<>(commonResponse, HttpStatus.CREATED);
     }
@@ -99,13 +100,16 @@ public class CandyController {
             if(candyToUpdate.getWeightPerUnit() != 0){
                 candy.setWeightPerUnit(candyToUpdate.getWeightPerUnit());
             }
+            if(candyToUpdate.getFactories() != null){
+                candy.setFactories(candyToUpdate.getFactories());
+            }
             candyRepository.save(candy);
 
             commonResponse.data = candy;
-            commonResponse.message = "Candy record with id: " +  id + " has been updated.";
+            commonResponse.message = "Record of candy with id: " +  id + " has been updated.";
             httpStatus = HttpStatus.OK;
         } else {
-            commonResponse.message = "Candy record with id: " + id + " was not found.";
+            commonResponse.message = "Record of candy with id: " + id + " was not found.";
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
@@ -120,10 +124,10 @@ public class CandyController {
 
             commonResponse.data = candyRepository.findById(id);
             candyRepository.deleteById(id);
-            commonResponse.message = "Candy record with id: " + id + " has been deleted.";
+            commonResponse.message = "Record of candy with id: " + id + " has been deleted.";
             httpStatus = HttpStatus.OK;
         } else {
-            commonResponse.message = "Candy record with id " + id + " was not found.";
+            commonResponse.message = "Record of candy with id " + id + " was not found.";
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);

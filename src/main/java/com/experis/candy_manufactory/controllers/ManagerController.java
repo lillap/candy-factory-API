@@ -26,7 +26,7 @@ public class ManagerController {
         managerToAdd = managerRepository.save(managerToAdd);
 
         commonResponse.data = managerToAdd;
-        commonResponse.message = "Oompalompa manager: " +  managerToAdd.getFirstName() +
+        commonResponse.message = "Oompalompa manager with name: " +  managerToAdd.getFirstName() +
                 " has been added with id: " + managerToAdd.getId();
 
         return new ResponseEntity<>(commonResponse,HttpStatus.CREATED);
@@ -55,7 +55,7 @@ public class ManagerController {
         CommonResponse commonResponse = new CommonResponse();
         List<Manager> managers = managerRepository.findAll();
         commonResponse.data = managers;
-        commonResponse.message = "List of all candy in the factory.";
+        commonResponse.message = "List of all existing managers in the database.";
 
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
@@ -76,14 +76,20 @@ public class ManagerController {
             if(managerToUpdate.getLastName() != null){
                 manager.setLastName(managerToUpdate.getLastName());
             }
+            if(managerToUpdate.getAddress() != null){
+                manager.setAddress(managerToUpdate.getAddress());
+            }
+            if(managerToUpdate.getFactory() != null){
+                manager.setFactory(managerToUpdate.getFactory());
+            }
 
             managerRepository.save(manager);
 
             commonResponse.data = manager;
-            commonResponse.message = "Manager record with id: " +  id + " has been updated.";
+            commonResponse.message = "Record of manager with id: " +  id + " has been updated.";
             httpStatus = HttpStatus.OK;
         } else {
-            commonResponse.message = "Manager record with id: " + id + " was not found.";
+            commonResponse.message = "Record of manager with id: " + id + " was not found.";
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
@@ -98,10 +104,10 @@ public class ManagerController {
 
             commonResponse.data = managerRepository.findById(id);
             managerRepository.deleteById(id);
-            commonResponse.message = "Manager record with id: " + id + " has been deleted.";
+            commonResponse.message = "Record of manager with id: " + id + " has been deleted.";
             httpStatus = HttpStatus.OK;
         } else {
-            commonResponse.message = "Manager record with id " + id + " was not found.";
+            commonResponse.message = "Record of manager with id " + id + " was not found.";
             httpStatus = HttpStatus.NOT_FOUND;
         }
         return new ResponseEntity<>(commonResponse, httpStatus);
