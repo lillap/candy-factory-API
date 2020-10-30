@@ -19,7 +19,7 @@ public class FactoryController {
     @Autowired
     FactoryRepository factoryRepository;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     private ResponseEntity<CommonResponse> addFactory(@RequestBody Factory factoryToAdd) {
         CommonResponse commonResponse = new CommonResponse();
 
@@ -32,7 +32,7 @@ public class FactoryController {
         return new ResponseEntity<>(commonResponse, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> getFactoryById( @PathVariable("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
         HttpStatus httpStatus;
@@ -48,7 +48,7 @@ public class FactoryController {
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     private ResponseEntity<CommonResponse> getAllFactories(){
         CommonResponse commonResponse = new CommonResponse();
         List<Factory> factories = factoryRepository.findAll();
@@ -58,7 +58,7 @@ public class FactoryController {
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> updateFactoryById ( @RequestBody Factory factoryToUpdate,
                                                               @PathVariable ("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
