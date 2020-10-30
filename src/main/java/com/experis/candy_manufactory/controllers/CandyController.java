@@ -19,7 +19,7 @@ public class CandyController {
     @Autowired
     private CandyRepository candyRepository;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     private ResponseEntity<CommonResponse> addCandy(@RequestBody Candy candyToAdd){
         CommonResponse commonResponse = new CommonResponse();
 
@@ -31,7 +31,7 @@ public class CandyController {
         return new ResponseEntity<>(commonResponse, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> getCandyById(@PathVariable ("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
         HttpStatus httpStatus;
@@ -49,7 +49,7 @@ public class CandyController {
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     private ResponseEntity<CommonResponse> getAllCandyRecords(){
         CommonResponse commonResponse = new CommonResponse();
         List<Candy> candies = candyRepository.findAll();
@@ -59,7 +59,7 @@ public class CandyController {
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/grouped", method = RequestMethod.GET)
+    @GetMapping(value = "/grouped")
     private ResponseEntity<CommonResponse> sortCandyRecordsByType(){
 
         CommonResponse commonResponse = new CommonResponse();
@@ -76,7 +76,7 @@ public class CandyController {
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> updateCandyRecord(@RequestBody Candy candyToUpdate,
                                                              @PathVariable ("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
@@ -110,7 +110,7 @@ public class CandyController {
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> deleteCandyRecordById(@PathVariable ("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
         HttpStatus httpStatus;
