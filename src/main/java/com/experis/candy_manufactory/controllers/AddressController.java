@@ -25,10 +25,24 @@ public class AddressController {
         addressToAdd = addressRepository.save(addressToAdd);
 
         commonResponse.data = addressToAdd;
-        commonResponse.message = "The address in: " + addressToAdd.getCity() + " has been added.";
+        commonResponse.message = "The address in " + addressToAdd.getCountry() + " has been added.";
 
         return new ResponseEntity<>(commonResponse, HttpStatus.CREATED);
+    }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getAddressById (@PathVariable ("id") Long id){
+        CommonResponse commonResponse = new CommonResponse();
+        HttpStatus httpStatus;
 
+        if(addressRepository.existsById(id)){
+           commonResponse.data = addressRepository.findById(id).get();
+            commonResponse.message = "The address with id: " + id + " was found.";
+            httpStatus = HttpStatus.OK;
+        } else {
+            commonResponse.message = "The address with id: " +  id +  " was not found.";
+            httpStatus = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(commonResponse, httpStatus);
     }
 }
