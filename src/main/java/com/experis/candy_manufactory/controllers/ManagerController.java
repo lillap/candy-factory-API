@@ -20,7 +20,7 @@ public class ManagerController {
     @Autowired
     ManagerRepository managerRepository;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<CommonResponse> addManager(@RequestBody Manager managerToAdd){
         CommonResponse commonResponse = new CommonResponse();
         managerToAdd = managerRepository.save(managerToAdd);
@@ -32,7 +32,7 @@ public class ManagerController {
         return new ResponseEntity<>(commonResponse,HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> getManagerById(@PathVariable ("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
         HttpStatus httpStatus;
@@ -60,7 +60,7 @@ public class ManagerController {
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> updateManagerRecord(@RequestBody Manager managerToUpdate,
                                                              @PathVariable ("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
@@ -89,7 +89,7 @@ public class ManagerController {
         return new ResponseEntity<>(commonResponse, httpStatus);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     private ResponseEntity<CommonResponse> deleteManagerRecordById(@PathVariable("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
         HttpStatus httpStatus;

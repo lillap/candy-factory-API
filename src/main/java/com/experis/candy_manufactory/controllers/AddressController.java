@@ -62,7 +62,8 @@ public class AddressController {
     }
 
     @PostMapping(value = "/{id}")
-    public ResponseEntity<CommonResponse> updateAddressById(@RequestBody Address addressToUpdate, @PathVariable("id") Long id){
+    public ResponseEntity<CommonResponse> updateAddressById(@RequestBody Address addressToUpdate,
+                                                            @PathVariable("id") Long id){
         CommonResponse commonResponse = new CommonResponse();
         HttpStatus httpStatus;
 
